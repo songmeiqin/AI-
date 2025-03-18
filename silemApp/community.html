@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区 - 死了么</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .tab-bar {
+            height: 83px;
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+        }
+        .post-card {
+            transition: all 0.2s ease;
+        }
+        .post-card:active {
+            transform: scale(0.98);
+        }
+        .topic-tag {
+            white-space: nowrap;
+        }
+        .floating-button {
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div>9:41 AM</div>
+        <div class="flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <div class="px-4 py-2 bg-white shadow-sm flex items-center justify-between">
+        <div class="flex items-center">
+            <span class="text-xl font-bold text-indigo-600">社区广场</span>
+        </div>
+        <div class="flex space-x-4">
+            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-bell text-gray-600"></i>
+            </button>
+            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-search text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="flex-1 overflow-auto p-4 pt-2 pb-16 relative">
+        <!-- 搜索栏 -->
+        <div class="bg-white rounded-2xl p-3 shadow-sm mb-4 flex items-center">
+            <i class="fas fa-search text-gray-400 mr-2"></i>
+            <input type="text" placeholder="搜索社区话题、内容" class="flex-1 text-sm bg-transparent outline-none">
+        </div>
+        
+        <!-- 话题分类 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm mb-4">
+            <h3 class="font-bold text-lg mb-3">热门话题</h3>
+            <div class="flex overflow-x-auto pb-2 -mx-1">
+                <div class="topic-tag px-3 py-1.5 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium mx-1 flex-shrink-0">
+                    <i class="fas fa-fire mr-1"></i> 热门
+                </div>
+                <div class="topic-tag px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium mx-1 flex-shrink-0">
+                    <i class="fas fa-utensils mr-1"></i> 独居美食
+                </div>
+                <div class="topic-tag px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium mx-1 flex-shrink-0">
+                    <i class="fas fa-heart mr-1"></i> 自我关爱
+                </div>
+                <div class="topic-tag px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium mx-1 flex-shrink-0">
+                    <i class="fas fa-comment-dots mr-1"></i> 吐槽大会
+                </div>
+                <div class="topic-tag px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium mx-1 flex-shrink-0">
+                    <i class="fas fa-couch mr-1"></i> 宅家指南
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐内容 -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-lg">推荐内容</h3>
+                <a href="#" class="text-sm text-indigo-600">查看更多</a>
+            </div>
+            
+            <!-- 推荐文章卡片 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm mb-4 border-l-4 border-indigo-500">
+                <div class="flex justify-between items-start">
+                    <h4 class="font-bold text-lg">独居青年生存手册：五个让你不会默默死去的小技巧</h4>
+                    <span class="bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded text-xs">精选</span>
+                </div>
+                <p class="text-gray-600 text-sm mt-2">如何在一个人生活时保持社交联系？如何设置紧急联系人？独居党生存指南来了！</p>
+                <div class="mt-3 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="作者头像" class="w-6 h-6 rounded-full mr-2">
+                        <span class="text-sm text-gray-600">独居达人</span>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <span class="mr-3"><i class="far fa-eye mr-1"></i> 2.3k</span>
+                        <span><i class="far fa-comment mr-1"></i> 48</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 社区动态 -->
+        <div class="mb-4">
+            <h3 class="font-bold text-lg mb-3">社区动态</h3>
+            
+            <!-- 动态卡片1 -->
+            <div class="post-card bg-white rounded-2xl p-4 shadow-sm mb-4">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-bold">不想上班小王</h4>
+                                <p class="text-xs text-gray-500">2小时前</p>
+                            </div>
+                            <button class="text-gray-400">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-700 mt-2">连续一周没出门了，今天终于出门买了菜，结果回家的路上忘记自己住几楼了🙃 在电梯里上上下下半小时，最后还是物业小哥认出我的，谁懂啊！</p>
+                        <div class="mt-3 grid grid-cols-2 gap-2">
+                            <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="照片" class="rounded-lg w-full h-32 object-cover">
+                            <img src="https://images.unsplash.com/photo-1565084888279-aca607ecce0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="照片" class="rounded-lg w-full h-32 object-cover">
+                        </div>
+                        <div class="mt-3 flex justify-between border-t border-gray-100 pt-3">
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-heart mr-1"></i>
+                                <span>78</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-comment mr-1"></i>
+                                <span>23</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-share-square mr-1"></i>
+                                <span>分享</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 动态卡片2 -->
+            <div class="post-card bg-white rounded-2xl p-4 shadow-sm mb-4">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/150?img=44" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-bold">独居修行者</h4>
+                                <p class="text-xs text-gray-500">昨天</p>
+                            </div>
+                            <button class="text-gray-400">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-700 mt-2">分享一个独居小技巧：冰箱里常备几个简单的速冻食品，生病时不想出门也能吃上热乎的。昨天感冒了，靠它们活了下来😷</p>
+                        <div class="mt-3">
+                            <img src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="照片" class="rounded-lg w-full h-48 object-cover">
+                        </div>
+                        <div class="mt-3 flex justify-between border-t border-gray-100 pt-3">
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-heart mr-1"></i>
+                                <span>156</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-comment mr-1"></i>
+                                <span>42</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-share-square mr-1"></i>
+                                <span>分享</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 动态卡片3 -->
+            <div class="post-card bg-white rounded-2xl p-4 shadow-sm mb-4">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-bold">死宅小花</h4>
+                                <p class="text-xs text-gray-500">3天前</p>
+                            </div>
+                            <button class="text-gray-400">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-700 mt-2">谁还记得上次整理房间是什么时候？我整理完发现床底下有上个月吃剩的披萨...现在我该怎么办，报警吗？👮‍♀️</p>
+                        <div class="mt-3 flex justify-between border-t border-gray-100 pt-3">
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-heart mr-1"></i>
+                                <span>203</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-comment mr-1"></i>
+                                <span>67</span>
+                            </button>
+                            <button class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-share-square mr-1"></i>
+                                <span>分享</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 发布按钮 -->
+        <div class="fixed right-4 bottom-24">
+            <button class="floating-button w-14 h-14 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg">
+                <i class="fas fa-plus text-xl"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar px-2 pt-2">
+        <div class="flex justify-around">
+            <a href="home.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">首页</span>
+            </a>
+            <a href="health.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">健康</span>
+            </a>
+            <a href="rider.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">骑手</span>
+            </a>
+            <a href="community.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-indigo-600">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-indigo-600">社区</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骑手服务 - 死了么</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .tab-bar {
+            height: 83px;
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+        }
+        .rider-banner {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+        .service-card {
+            transition: all 0.2s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .rider-avatar {
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .emergency-button {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div>9:41 AM</div>
+        <div class="flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <div class="px-4 py-2 bg-white shadow-sm flex items-center justify-between">
+        <div class="flex items-center">
+            <span class="text-xl font-bold text-indigo-600">骑手服务</span>
+        </div>
+        <div class="flex space-x-4">
+            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-headset text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="flex-1 overflow-auto p-4 pt-2">
+        <!-- 骑手服务横幅 -->
+        <div class="rider-banner rounded-2xl p-5 shadow-sm mb-4 text-white">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-white text-opacity-90">骑手上门服务</p>
+                    <h2 class="text-2xl font-bold">专业关怀，随叫随到</h2>
+                </div>
+                <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-motorcycle text-white text-xl"></i>
+                </div>
+            </div>
+            <p class="mt-3 text-sm">不是来收尸的，是来关心你还活着的！</p>
+        </div>
+        
+        <!-- 紧急求助按钮 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+            <button class="emergency-button w-full py-4 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-lg flex items-center justify-center shadow-md">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span>紧急求助 - 立即派单</span>
+            </button>
+            <p class="mt-2 text-center text-gray-500 text-sm">感觉不适？我们的骑手会以最快速度赶到</p>
+        </div>
+        
+        <!-- 服务类型卡片 -->
+        <div class="mb-4">
+            <h3 class="font-bold text-lg mb-3 px-1">服务项目</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="service-card bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                        <i class="fas fa-user-check text-indigo-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-bold">日常探视</h4>
+                    <p class="text-sm text-gray-500 mt-1">定期上门确认您安好无虞</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-indigo-600 font-bold">¥39.9起</span>
+                        <button class="px-3 py-1 rounded-lg bg-indigo-100 text-indigo-600 text-sm">
+                            预约
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3">
+                        <i class="fas fa-utensils text-purple-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-bold">餐食配送</h4>
+                    <p class="text-sm text-gray-500 mt-1">健康营养餐直送到家</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-purple-600 font-bold">¥29.9起</span>
+                        <button class="px-3 py-1 rounded-lg bg-purple-100 text-purple-600 text-sm">
+                            订餐
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                        <i class="fas fa-pills text-green-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-bold">药品配送</h4>
+                    <p class="text-sm text-gray-500 mt-1">急需药品快速送达</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-green-600 font-bold">¥19.9起</span>
+                        <button class="px-3 py-1 rounded-lg bg-green-100 text-green-600 text-sm">
+                            买药
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white rounded-2xl p-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-3">
+                        <i class="fas fa-broom text-yellow-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-bold">居家保洁</h4>
+                    <p class="text-sm text-gray-500 mt-1">创造干净舒适环境</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-yellow-600 font-bold">¥59.9起</span>
+                        <button class="px-3 py-1 rounded-lg bg-yellow-100 text-yellow-600 text-sm">
+                            预约
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 骑手推荐 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+            <h3 class="font-bold text-lg mb-4">附近骑手</h3>
+            
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/150?img=68" alt="骑手照片" class="w-14 h-14 rounded-full rider-avatar mr-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="font-bold">王小明</h4>
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star text-sm"></i>
+                                <span class="text-sm ml-1">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">服务2891单 | 距您1.2km</p>
+                        <div class="flex mt-1">
+                            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full mr-1">专业认证</span>
+                            <span class="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full">医疗培训</span>
+                        </div>
+                    </div>
+                    <button class="ml-2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-600 text-sm">
+                        选择
+                    </button>
+                </div>
+                
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/150?img=44" alt="骑手照片" class="w-14 h-14 rounded-full rider-avatar mr-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="font-bold">李小红</h4>
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star text-sm"></i>
+                                <span class="text-sm ml-1">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">服务1253单 | 距您2.5km</p>
+                        <div class="flex mt-1">
+                            <span class="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full mr-1">医护背景</span>
+                            <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full">急救能手</span>
+                        </div>
+                    </div>
+                    <button class="ml-2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-600 text-sm">
+                        选择
+                    </button>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 rounded-xl bg-gray-100 text-gray-700 font-medium text-sm flex items-center justify-center mt-4">
+                <i class="fas fa-search mr-2"></i>
+                <span>查看更多骑手</span>
+            </button>
+        </div>
+        
+        <!-- 服务包推荐 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg">服务套餐</h3>
+                <a href="#" class="text-indigo-600 text-sm">查看全部</a>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="bg-indigo-50 p-3 rounded-xl">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-indigo-700">月度安心计划</h4>
+                        <span class="bg-indigo-500 text-white px-2 py-0.5 rounded-md text-xs">热门</span>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span class="text-gray-700">每周2次上门探视</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span class="text-gray-700">送餐服务3次/周</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check text-indigo-500 mr-2"></i>
+                            <span class="text-gray-700">24小时紧急救援</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center">
+                        <div>
+                            <span class="text-2xl font-bold text-indigo-600">¥299</span>
+                            <span class="text-gray-500 text-sm line-through ml-1">¥399</span>
+                        </div>
+                        <button class="px-3 py-1 rounded-lg bg-indigo-600 text-white text-sm">
+                            立即订购
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-purple-50 p-3 rounded-xl">
+                    <h4 class="font-bold text-purple-700">单次急救服务</h4>
+                    <div class="mt-2 space-y-1">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span class="text-gray-700">15分钟内响应</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span class="text-gray-700">专业医疗护理</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center">
+                        <div>
+                            <span class="text-2xl font-bold text-purple-600">¥99</span>
+                        </div>
+                        <button class="px-3 py-1 rounded-lg bg-purple-600 text-white text-sm">
+                            立即订购
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 服务评价 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg">服务评价</h3>
+                <div class="flex items-center text-yellow-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="ml-1 text-gray-700">4.8</span>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="pb-4 border-b border-gray-100">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=32" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">张小白</h4>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="ml-auto text-gray-500 text-sm">3天前</span>
+                    </div>
+                    <p class="mt-2 text-gray-700 text-sm">骑手超级nice，感冒了送药还帮我煮了姜汤，简直救命！独居青年血泪推荐！</p>
+                </div>
+                
+                <div>
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=37" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">刘大壮</h4>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="ml-auto text-gray-500 text-sm">1周前</span>
+                    </div>
+                    <p class="mt-2 text-gray-700 text-sm">服务态度好，按时来探视，就是送的饭菜有点凉了，但骑手二话不说又给我热了一下，有心了！</p>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 rounded-xl bg-gray-100 text-gray-700 font-medium text-sm flex items-center justify-center mt-4">
+                <span>查看全部评价</span>
+                <i class="fas fa-chevron-right ml-2 text-xs"></i>
+            </button>
+        </div>
+        
+        <!-- 服务历史记录 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg">我的服务记录</h3>
+                <a href="#" class="text-indigo-600 text-sm">全部记录</a>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="border border-gray-100 p-3 rounded-xl">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-pills text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">药品配送</h4>
+                                <p class="text-xs text-gray-500">由骑手：王小明送达</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-sm text-gray-600">昨天</span>
+                            <div class="text-green-500 text-sm">已完成</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-100 p-3 rounded-xl">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-utensils text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">餐食配送</h4>
+                                <p class="text-xs text-gray-500">由骑手：李小红送达</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-sm text-gray-600">3天前</span>
+                            <div class="text-green-500 text-sm">已完成</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-100 p-3 rounded-xl">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-user-check text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">日常探视</h4>
+                                <p class="text-xs text-gray-500">由骑手：赵师傅进行</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-sm text-gray-600">上周</span>
+                            <div class="text-green-500 text-sm">已完成</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 rounded-xl bg-gray-100 text-gray-700 font-medium text-sm flex items-center justify-center mt-4">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                <span>查看更多记录</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar px-2 pt-2">
+        <div class="flex justify-around">
+            <a href="home.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">首页</span>
+            </a>
+            <a href="health.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">健康</span>
+            </a>
+            <a href="rider.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-indigo-600">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-indigo-600">骑手</span>
+            </a>
+            <a href="community.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">社区</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center w-1/5">
+                <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="mt-1 text-xs font-medium text-gray-500">我的</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 添加快捷入口浮动按钮 -->
+    <div class="fixed bottom-24 right-4 z-10">
+        <div class="flex flex-col items-center space-y-3">
+            <button class="w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg flex items-center justify-center">
+                <i class="fas fa-comments"></i>
+            </button>
+            <button class="w-12 h-12 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center">
+                <i class="fas fa-map-marker-alt"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

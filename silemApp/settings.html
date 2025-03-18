@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置 - 死了么</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .tab-bar {
+            height: 83px;
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+        }
+        .settings-item {
+            transition: all 0.2s ease;
+        }
+        .settings-item:active {
+            background-color: #f3f4f6;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #6366f1;
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        .settings-section {
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div>9:41 AM</div>
+        <div class="flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <div class="px-4 py-2 bg-white shadow-sm flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="profile.html" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </a>
+            <span class="text-xl font-bold text-indigo-600">设置</span>
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="flex-1 overflow-auto p-4 pt-2">
+        <!-- 账号设置 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">账号设置</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-indigo-600"></i>
+                        </div>
+                        <span>个人资料</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-phone-alt text-green-600"></i>
+                        </div>
+                        <span>紧急联系人</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-lock text-blue-600"></i>
+                        </div>
+                        <span>修改密码</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 隐私设置 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">隐私设置</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-eye-slash text-purple-600"></i>
+                        </div>
+                        <span>隐私权限</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-compass text-yellow-600"></i>
+                        </div>
+                        <span>位置权限</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-user-friends text-red-600"></i>
+                        </div>
+                        <span>社区隐私</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 通知设置 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">通知设置</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-bell text-pink-600"></i>
+                        </div>
+                        <span>打卡提醒</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-comment-dots text-blue-600"></i>
+                        </div>
+                        <span>社区动态</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-heartbeat text-green-600"></i>
+                        </div>
+                        <span>健康提醒</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 偏好设置 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">偏好设置</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-moon text-indigo-600"></i>
+                        </div>
+                        <span>深色模式</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-font text-orange-600"></i>
+                        </div>
+                        <span>字体大小</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-500 mr-2">标准</span>
+                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                    </div>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-language text-purple-600"></i>
+                        </div>
+                        <span>语言</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-500 mr-2">简体中文</span>
+                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 帮助和支持 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">帮助和支持</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-headset text-blue-600"></i>
+                        </div>
+                        <span>联系客服</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-question-circle text-green-600"></i>
+                        </div>
+                        <span>常见问题</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-bug text-yellow-600"></i>
+                        </div>
+                        <span>问题反馈</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 关于 -->
+        <div class="settings-section">
+            <h3 class="text-xs font-medium text-gray-500 px-1 mb-2">关于</h3>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-info-circle text-indigo-600"></i>
+                        </div>
+                        <span>关于我们</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between border-b border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-shield-alt text-blue-600"></i>
+                        </div>
+                        <span>用户协议</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-sync-alt text-teal-600"></i>
+                        </div>
+                        <div>
+                            <span>当前版本</span>
+                            <span class="ml-2 text-xs text-gray-500">v2.1.4</span>
+                        </div>
+                    </div>
+                    <span class="text-xs text-gray-500">已是最新版本</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 退出登录 -->
+        <div class="settings-section">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <button class="w-full p-4 text-center text-red-500 font-medium">
+                    退出登录
+                </button>
+            </div>
+        </div>
+        
+        <!-- 版权信息 -->
+        <div class="text-center text-xs text-gray-400 mt-4 mb-8">
+            <p>© 2023 死了么 App</p>
+            <p class="mt-1">有人关心你是否还活着</p>
+        </div>
+    </div>
+</body>
+</html>
