@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理中心 - AI训练管理平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark {
+            --bg-primary: #1F2937;
+            --text-primary: #F9FAFB;
+            --card-bg: #374151;
+        }
+        
+        .light {
+            --bg-primary: #F9FAFB;
+            --text-primary: #1F2937;
+            --card-bg: #FFFFFF;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+        
+        .progress-ring {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+        
+        .circle-bg {
+            fill: none;
+            stroke: #E5E7EB;
+            stroke-width: 4;
+        }
+        
+        .circle {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s;
+        }
+        
+        .main-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white light">
+    <div class="main-content p-4">
+        <h1 class="text-2xl font-bold mb-5">管理中心</h1>
+        
+        <!-- 数据概览 -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="card shadow-sm p-4">
+                <div class="flex flex-col items-center">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">总训练参与人数</div>
+                    <div class="text-2xl font-bold">128</div>
+                    <div class="text-xs text-green-500">
+                        <i class="fas fa-arrow-up"></i> 15% 较上月
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-4">
+                <div class="flex flex-col items-center">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">训练总次数</div>
+                    <div class="text-2xl font-bold">1,253</div>
+                    <div class="text-xs text-green-500">
+                        <i class="fas fa-arrow-up"></i> 8% 较上月
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-4">
+                <div class="flex flex-col items-center">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">平均能力提升</div>
+                    <div class="text-2xl font-bold">15.2%</div>
+                    <div class="text-xs text-green-500">
+                        <i class="fas fa-arrow-up"></i> 2.3% 较上月
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-4">
+                <div class="flex flex-col items-center">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">课程完成率</div>
+                    <div class="text-2xl font-bold">68%</div>
+                    <div class="text-xs text-red-500">
+                        <i class="fas fa-arrow-down"></i> 3% 较上月
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 月度训练趋势 -->
+        <div class="card shadow-sm p-4 mb-6">
+            <h2 class="text-lg font-semibold mb-3">月度训练趋势</h2>
+            <div class="chart-container">
+                <svg width="100%" height="100%" viewBox="0 0 400 200">
+                    <!-- X轴和Y轴 -->
+                    <line x1="40" y1="160" x2="380" y2="160" stroke="#E5E7EB" stroke-width="1" />
+                    <line x1="40" y1="20" x2="40" y2="160" stroke="#E5E7EB" stroke-width="1" />
+                    
+                    <!-- X轴刻度和标签 -->
+                    <text x="65" y="180" text-anchor="middle" font-size="8" fill="currentColor">1月</text>
+                    <text x="95" y="180" text-anchor="middle" font-size="8" fill="currentColor">2月</text>
+                    <text x="125" y="180" text-anchor="middle" font-size="8" fill="currentColor">3月</text>
+                    <text x="155" y="180" text-anchor="middle" font-size="8" fill="currentColor">4月</text>
+                    <text x="185" y="180" text-anchor="middle" font-size="8" fill="currentColor">5月</text>
+                    <text x="215" y="180" text-anchor="middle" font-size="8" fill="currentColor">6月</text>
+                    <text x="245" y="180" text-anchor="middle" font-size="8" fill="currentColor">7月</text>
+                    <text x="275" y="180" text-anchor="middle" font-size="8" fill="currentColor">8月</text>
+                    <text x="305" y="180" text-anchor="middle" font-size="8" fill="currentColor">9月</text>
+                    <text x="335" y="180" text-anchor="middle" font-size="8" fill="currentColor">10月</text>
+                    <text x="365" y="180" text-anchor="middle" font-size="8" fill="currentColor">11月</text>
+                    
+                    <!-- Y轴刻度和标签 -->
+                    <text x="30" y="160" text-anchor="end" font-size="8" fill="currentColor">0</text>
+                    <text x="30" y="125" text-anchor="end" font-size="8" fill="currentColor">50</text>
+                    <text x="30" y="90" text-anchor="end" font-size="8" fill="currentColor">100</text>
+                    <text x="30" y="55" text-anchor="end" font-size="8" fill="currentColor">150</text>
+                    <text x="30" y="20" text-anchor="end" font-size="8" fill="currentColor">200</text>
+                    
+                    <!-- 数据柱形图 -->
+                    <rect x="55" y="120" width="20" height="40" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="85" y="110" width="20" height="50" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="115" y="100" width="20" height="60" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="145" y="90" width="20" height="70" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="175" y="70" width="20" height="90" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="205" y="60" width="20" height="100" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="235" y="70" width="20" height="90" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="265" y="80" width="20" height="80" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="295" y="60" width="20" height="100" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="325" y="50" width="20" height="110" fill="#3B82F6" rx="2" opacity="0.8" />
+                    <rect x="355" y="40" width="20" height="120" fill="#3B82F6" rx="2" opacity="0.8" />
+                </svg>
+            </div>
+        </div>
+        
+        <!-- 能力分布 -->
+        <div class="card shadow-sm p-4 mb-6">
+            <h2 class="text-lg font-semibold mb-4">能力分布</h2>
+            <div class="flex justify-between items-center">
+                <div class="text-center">
+                    <div class="progress-ring mx-auto">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <circle class="circle-bg dark:stroke-gray-700" cx="30" cy="30" r="25" />
+                            <circle class="circle" cx="30" cy="30" r="25" stroke="#3B82F6" stroke-dasharray="157" stroke-dashoffset="31.4" transform="rotate(-90 30 30)" />
+                            <text x="30" y="35" text-anchor="middle" font-size="12" fill="currentColor" font-weight="bold">80%</text>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-sm">沟通能力</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="progress-ring mx-auto">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <circle class="circle-bg dark:stroke-gray-700" cx="30" cy="30" r="25" />
+                            <circle class="circle" cx="30" cy="30" r="25" stroke="#8B5CF6" stroke-dasharray="157" stroke-dashoffset="62.8" transform="rotate(-90 30 30)" />
+                            <text x="30" y="35" text-anchor="middle" font-size="12" fill="currentColor" font-weight="bold">60%</text>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-sm">产品知识</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="progress-ring mx-auto">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <circle class="circle-bg dark:stroke-gray-700" cx="30" cy="30" r="25" />
+                            <circle class="circle" cx="30" cy="30" r="25" stroke="#EC4899" stroke-dasharray="157" stroke-dashoffset="47.1" transform="rotate(-90 30 30)" />
+                            <text x="30" y="35" text-anchor="middle" font-size="12" fill="currentColor" font-weight="bold">70%</text>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-sm">客户需求分析</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="progress-ring mx-auto">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <circle class="circle-bg dark:stroke-gray-700" cx="30" cy="30" r="25" />
+                            <circle class="circle" cx="30" cy="30" r="25" stroke="#10B981" stroke-dasharray="157" stroke-dashoffset="78.5" transform="rotate(-90 30 30)" />
+                            <text x="30" y="35" text-anchor="middle" font-size="12" fill="currentColor" font-weight="bold">50%</text>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-sm">逻辑清晰</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 员工列表 -->
+        <h2 class="text-lg font-semibold mb-3">员工列表</h2>
+        <div class="grid grid-cols-1 gap-3">
+            <div class="card shadow-sm p-3 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white mr-3">
+                    <span class="font-medium">张</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-medium">张小明</h3>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">客户经理 | ID: 10086</div>
+                        </div>
+                        <div class="text-sm font-medium text-blue-500">88分</div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs">
+                        <div class="space-x-1">
+                            <span class="inline-block px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded">训练15次</span>
+                            <span class="inline-block px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded">完成课程6个</span>
+                        </div>
+                        <div>
+                            <span class="inline-block px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 rounded">沟通A+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-3 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-white mr-3">
+                    <span class="font-medium">李</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-medium">李华</h3>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">高级客户经理 | ID: 10087</div>
+                        </div>
+                        <div class="text-sm font-medium text-purple-500">92分</div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs">
+                        <div class="space-x-1">
+                            <span class="inline-block px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded">训练28次</span>
+                            <span class="inline-block px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded">完成课程12个</span>
+                        </div>
+                        <div>
+                            <span class="inline-block px-2 py-0.5 bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300 rounded">需求分析A+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-3 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-white mr-3">
+                    <span class="font-medium">王</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-medium">王丽</h3>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">客户经理 | ID: 10088</div>
+                        </div>
+                        <div class="text-sm font-medium text-green-500">76分</div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs">
+                        <div class="space-x-1">
+                            <span class="inline-block px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded">训练12次</span>
+                            <span class="inline-block px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded">完成课程5个</span>
+                        </div>
+                        <div>
+                            <span class="inline-block px-2 py-0.5 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded">产品知识B+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-3 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center text-white mr-3">
+                    <span class="font-medium">赵</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-medium">赵强</h3>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">客户经理 | ID: 10089</div>
+                        </div>
+                        <div class="text-sm font-medium text-red-500">65分</div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs">
+                        <div class="space-x-1">
+                            <span class="inline-block px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded">训练8次</span>
+                            <span class="inline-block px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded">完成课程3个</span>
+                        </div>
+                        <div>
+                            <span class="inline-block px-2 py-0.5 bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 rounded">待提升</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apply system theme preference if any
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI训练 - AI训练管理平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark {
+            --bg-primary: #1F2937;
+            --text-primary: #F9FAFB;
+            --card-bg: #374151;
+        }
+        
+        .light {
+            --bg-primary: #F9FAFB;
+            --text-primary: #1F2937;
+            --card-bg: #FFFFFF;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-bubble {
+            border-radius: 18px;
+            max-width: 85%;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .chat-bubble.ai {
+            border-top-left-radius: 4px;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        
+        .dark .chat-bubble.ai {
+            background-color: #374151;
+            color: #F9FAFB;
+        }
+        
+        .chat-bubble.user {
+            border-top-right-radius: 4px;
+            background-color: #2563EB;
+            color: white;
+            align-self: flex-end;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #D1D5DB;
+            margin: 0 1px;
+            animation: typingAnimation 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 50%, 100% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-3px);
+            }
+        }
+        
+        .feedback-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        
+        .feedback-badge.good {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+        
+        .dark .feedback-badge.good {
+            background-color: #065F46;
+            color: #A7F3D0;
+        }
+        
+        .feedback-badge.improve {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .dark .feedback-badge.improve {
+            background-color: #783C00;
+            color: #FDE68A;
+        }
+        
+        .scenario-card {
+            width: 150px;
+            flex-shrink: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .scenario-card:hover .card-overlay {
+            opacity: 1;
+        }
+        
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white light">
+    <div class="main-content p-4">
+        <h1 class="text-2xl font-bold mb-5">AI训练</h1>
+        
+        <!-- 训练场景 -->
+        <h2 class="text-lg font-semibold mb-3">选择训练场景</h2>
+        <div class="flex space-x-3 overflow-x-auto pb-2 -mx-4 px-4 mb-6">
+            <div class="scenario-card bg-gradient-to-br from-blue-400 to-blue-600">
+                <div class="p-3 text-white">
+                    <h3 class="font-medium mb-1">高净值客户沟通</h3>
+                    <p class="text-xs text-blue-100 mb-8">针对高净值客户的沟通技巧和需求挖掘</p>
+                    <div class="text-xs flex items-center justify-between">
+                        <span>10个场景</span>
+                        <span>4.8 <i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="card-overlay">
+                    <button class="bg-white text-blue-600 font-medium px-4 py-1.5 rounded-full text-sm hover:bg-blue-50 transition">
+                        开始训练
+                    </button>
+                </div>
+            </div>
+            
+            <div class="scenario-card bg-gradient-to-br from-red-400 to-red-600">
+                <div class="p-3 text-white">
+                    <h3 class="font-medium mb-1">突发异议处理</h3>
+                    <p class="text-xs text-red-100 mb-8">客户异议和冲突情境下的解决方案</p>
+                    <div class="text-xs flex items-center justify-between">
+                        <span>12个场景</span>
+                        <span>4.6 <i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="card-overlay">
+                    <button class="bg-white text-red-600 font-medium px-4 py-1.5 rounded-full text-sm hover:bg-red-50 transition">
+                        开始训练
+                    </button>
+                </div>
+            </div>
+            
+            <div class="scenario-card bg-gradient-to-br from-green-400 to-green-600">
+                <div class="p-3 text-white">
+                    <h3 class="font-medium mb-1">产品特性讲解</h3>
+                    <p class="text-xs text-green-100 mb-8">如何清晰简洁地讲解产品特性和优势</p>
+                    <div class="text-xs flex items-center justify-between">
+                        <span>8个场景</span>
+                        <span>4.9 <i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="card-overlay">
+                    <button class="bg-white text-green-600 font-medium px-4 py-1.5 rounded-full text-sm hover:bg-green-50 transition">
+                        开始训练
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 当前训练 -->
+        <div class="card shadow-sm p-4 mb-5">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">当前训练</h2>
+                <span class="text-sm text-blue-500">高净值客户-金融产品推荐</span>
+            </div>
+            
+            <!-- 对话区域 -->
+            <div class="flex flex-col space-y-1 mb-4 overflow-y-auto max-h-80">
+                <div class="chat-bubble ai p-3">
+                    <p class="text-sm">您好，我是刘先生。我听说贵公司最近推出了一款理财产品，能给我介绍一下吗？</p>
+                </div>
+                
+                <div class="chat-bubble user p-3">
+                    <p class="text-sm">刘先生您好，感谢您对我们产品的关注。是的，我们最近确实推出了一款全新的"稳健成长"理财产品，这款产品专为追求稳定收益的高净值客户设计。您平时偏好什么类型的投资呢？</p>
+                </div>
+                
+                <div class="chat-bubble ai p-3">
+                    <p class="text-sm">我一般偏好风险较低的产品，最近股市波动太大，想找一些相对稳定的投资。这个"稳健成长"具体是什么样的收益模式？</p>
+                </div>
+                
+                <div class="chat-bubble user p-3">
+                    <p class="text-sm">您的需求非常明确。"稳健成长"采用的是债券为主、优质蓝筹股为辅的混合配置策略，过去三年的年化收益在5%-7%之间，波动性较低，很适合您这样追求稳健回报的投资者。</p>
+                    <div class="mt-1 flex flex-wrap">
+                        <span class="feedback-badge good">✓ 针对性回应</span>
+                        <span class="feedback-badge good">✓ 数据支撑</span>
+                        <span class="feedback-badge improve">! 可补充流动性信息</span>
+                    </div>
+                </div>
+                
+                <div class="chat-bubble ai p-3">
+                    <p class="text-sm">收益看起来不错，那流动性怎么样？我可能半年内需要用一部分资金。</p>
+                </div>
+                
+                <div class="chat-bubble ai p-3">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 输入区域 -->
+            <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
+                <input type="text" 
+                       placeholder="输入您的回复..." 
+                       class="flex-1 py-3 px-4 border-none focus:outline-none bg-transparent" 
+                       value="关于流动性，这款产品设计了灵活赎回机制，标准持有期是一年，但设有">
+                <div class="flex items-center pr-2">
+                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-blue-500">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="w-8 h-8 flex items-center justify-center text-white bg-blue-500 hover:bg-blue-600 rounded-full">
+                        <i class="fas fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 历史训练 -->
+        <h2 class="text-lg font-semibold mb-3">近期训练</h2>
+        <div class="space-y-3">
+            <div class="card shadow-sm p-4 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between">
+                        <h3 class="font-medium">产品特性-养老年金险</h3>
+                        <span class="text-sm font-medium text-green-500">92分</span>
+                    </div>
+                    <div class="flex text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <span>训练时间: 35分钟</span>
+                        <span class="mx-2">|</span>
+                        <span>今天 14:30</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-4 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between">
+                        <h3 class="font-medium">异议处理-价格敏感客户</h3>
+                        <span class="text-sm font-medium text-yellow-500">78分</span>
+                    </div>
+                    <div class="flex text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <span>训练时间: 28分钟</span>
+                        <span class="mx-2">|</span>
+                        <span>昨天 09:15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm p-4 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between">
+                        <h3 class="font-medium">高净值-资产配置方案</h3>
+                        <span class="text-sm font-medium text-blue-500">85分</span>
+                    </div>
+                    <div class="flex text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <span>训练时间: 42分钟</span>
+                        <span class="mx-2">|</span>
+                        <span>3天前</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apply system theme preference if any
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        }
+    </script>
+</body>
+</html>

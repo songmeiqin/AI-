@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能力评估 - AI训练管理平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark {
+            --bg-primary: #1F2937;
+            --text-primary: #F9FAFB;
+            --card-bg: #374151;
+        }
+        
+        .light {
+            --bg-primary: #F9FAFB;
+            --text-primary: #1F2937;
+            --card-bg: #FFFFFF;
+        }
+        
+        .card {
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .radar-chart {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            margin: 0 auto;
+        }
+        
+        .chart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.1;
+        }
+        
+        .radar-lines {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            z-index: 2;
+        }
+        
+        .radar-data {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            z-index: 3;
+        }
+        
+        .ability-progress {
+            width: 100%;
+            height: 8px;
+            background-color: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .ability-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white light">
+    <div class="main-content p-4">
+        <h1 class="text-2xl font-bold mb-5">能力评估</h1>
+        
+        <!-- 能力概览卡片 -->
+        <div class="card shadow-sm p-4 mb-6">
+            <h2 class="text-lg font-semibold mb-3">能力概览</h2>
+            <div class="radar-chart">
+                <div class="radar-data">
+                    <svg viewBox="0 0 200 200">
+                        <polygon points="100,20 160,50 160,150 100,180 40,150 40,50" fill="rgba(59, 130, 246, 0.2)" stroke="#3B82F6" stroke-width="2"></polygon>
+                        <circle cx="100" cy="20" r="4" fill="#3B82F6"></circle>
+                        <circle cx="160" cy="50" r="4" fill="#3B82F6"></circle>
+                        <circle cx="160" cy="150" r="4" fill="#3B82F6"></circle>
+                        <circle cx="100" cy="180" r="4" fill="#3B82F6"></circle>
+                        <circle cx="40" cy="150" r="4" fill="#3B82F6"></circle>
+                        <circle cx="40" cy="50" r="4" fill="#3B82F6"></circle>
+                        <text x="100" y="10" text-anchor="middle" font-size="8" fill="currentColor">沟通能力</text>
+                        <text x="173" y="50" text-anchor="start" font-size="8" fill="currentColor">产品知识</text>
+                        <text x="173" y="150" text-anchor="start" font-size="8" fill="currentColor">客户需求</text>
+                        <text x="100" y="195" text-anchor="middle" font-size="8" fill="currentColor">逻辑清晰</text>
+                        <text x="27" y="150" text-anchor="end" font-size="8" fill="currentColor">应变能力</text>
+                        <text x="27" y="50" text-anchor="end" font-size="8" fill="currentColor">分析能力</text>
+                    </svg>
+                </div>
+                <div class="radar-lines">
+                    <svg viewBox="0 0 200 200">
+                        <polygon points="100,40 140,70 140,130 100,160 60,130 60,70" fill="none" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></polygon>
+                        <polygon points="100,60 120,80 120,120 100,140 80,120 80,80" fill="none" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></polygon>
+                        <polygon points="100,80 110,90 110,110 100,120 90,110 90,90" fill="none" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></polygon>
+                        <line x1="100" y1="0" x2="100" y2="200" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></line>
+                        <line x1="0" y1="100" x2="200" y2="100" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></line>
+                        <line x1="29" y1="29" x2="171" y2="171" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></line>
+                        <line x1="171" y1="29" x2="29" y2="171" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2"></line>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-500">78</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">综合得分</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+                <div>
+                    <div class="font-semibold text-blue-500">AI训练评分</div>
+                    <div>82分</div>
+                </div>
+                <div>
+                    <div class="font-semibold text-green-500">实际表现得分</div>
+                    <div>75分</div>
+                </div>
+                <div>
+                    <div class="font-semibold text-purple-500">同事/主管评价</div>
+                    <div>76分</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 沟通能力卡片 -->
+        <div class="card shadow-sm p-4 mb-4 slide-up" style="animation-delay: 0.1s;">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-base font-semibold flex items-center">
+                    <div class="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                    沟通能力
+                </h2>
+                <div class="text-lg font-bold text-blue-500">85</div>
+            </div>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">能够清晰表达产品信息，倾听客户需求，建立客户信任关系</p>
+            
+            <div class="mb-2">
+                <div class="flex justify-between text-xs mb-1">
+                    <span>当前水平</span>
+                    <span>目标水平</span>
+                </div>
+                <div class="ability-progress dark:bg-gray-700 relative">
+                    <div class="ability-bar bg-blue-500" style="width: 85%;"></div>
+                    <div class="absolute right-0 top-0 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-900 bg-blue-300"></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <div class="text-xs">
+                    <div class="font-medium mb-1">客户接待</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: 90%;"></div>
+                        </div>
+                        <span class="ml-2 text-blue-500">9.0</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">需求挖掘</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: 80%;"></div>
+                        </div>
+                        <span class="ml-2 text-blue-500">8.0</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">异议处理</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: 75%;"></div>
+                        </div>
+                        <span class="ml-2 text-blue-500">7.5</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">情绪管理</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: 85%;"></div>
+                        </div>
+                        <span class="ml-2 text-blue-500">8.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 产品知识卡片 -->
+        <div class="card shadow-sm p-4 mb-4 slide-up" style="animation-delay: 0.2s;">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-base font-semibold flex items-center">
+                    <div class="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
+                    产品知识
+                </h2>
+                <div class="text-lg font-bold text-purple-500">60</div>
+            </div>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">了解产品功能、特点、优势及适用人群，能够针对不同客户推荐适合的产品</p>
+            
+            <div class="mb-2">
+                <div class="flex justify-between text-xs mb-1">
+                    <span>当前水平</span>
+                    <span>目标水平</span>
+                </div>
+                <div class="ability-progress dark:bg-gray-700 relative">
+                    <div class="ability-bar bg-purple-500" style="width: 60%;"></div>
+                    <div class="absolute right-0 top-0 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-900 bg-purple-300"></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <div class="text-xs">
+                    <div class="font-medium mb-1">产品特性</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-500" style="width: 65%;"></div>
+                        </div>
+                        <span class="ml-2 text-purple-500">6.5</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">产品优势</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-500" style="width: 70%;"></div>
+                        </div>
+                        <span class="ml-2 text-purple-500">7.0</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">对比分析</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-500" style="width: 50%;"></div>
+                        </div>
+                        <span class="ml-2 text-purple-500">5.0</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">适用场景</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-500" style="width: 55%;"></div>
+                        </div>
+                        <span class="ml-2 text-purple-500">5.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 客户需求分析卡片 -->
+        <div class="card shadow-sm p-4 mb-6 slide-up" style="animation-delay: 0.3s;">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-base font-semibold flex items-center">
+                    <div class="w-3 h-3 rounded-full bg-pink-500 mr-2"></div>
+                    客户需求分析
+                </h2>
+                <div class="text-lg font-bold text-pink-500">70</div>
+            </div>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">根据客户背景、需求和行为特征，进行准确分析并提供合适的解决方案</p>
+            
+            <div class="mb-2">
+                <div class="flex justify-between text-xs mb-1">
+                    <span>当前水平</span>
+                    <span>目标水平</span>
+                </div>
+                <div class="ability-progress dark:bg-gray-700 relative">
+                    <div class="ability-bar bg-pink-500" style="width: 70%;"></div>
+                    <div class="absolute right-0 top-0 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-900 bg-pink-300"></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <div class="text-xs">
+                    <div class="font-medium mb-1">需求挖掘</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-pink-500" style="width: 75%;"></div>
+                        </div>
+                        <span class="ml-2 text-pink-500">7.5</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">客户画像</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-pink-500" style="width: 65%;"></div>
+                        </div>
+                        <span class="ml-2 text-pink-500">6.5</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">方案设计</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-pink-500" style="width: 70%;"></div>
+                        </div>
+                        <span class="ml-2 text-pink-500">7.0</span>
+                    </div>
+                </div>
+                <div class="text-xs">
+                    <div class="font-medium mb-1">价值呈现</div>
+                    <div class="flex items-center">
+                        <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-pink-500" style="width: 70%;"></div>
+                        </div>
+                        <span class="ml-2 text-pink-500">7.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 查看差距分析按钮 -->
+        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg shadow-md transition duration-300 mb-6">
+            查看详细差距分析报告
+        </button>
+        
+        <!-- 推荐训练 -->
+        <h2 class="text-lg font-semibold mb-3">基于评估推荐训练项目</h2>
+        <div class="space-y-3">
+            <div class="card p-3 shadow-sm slide-up flex items-center" style="animation-delay: 0.4s;">
+                <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-500 mr-3">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-sm">产品知识精讲课程</h3>
+                    <div class="flex items-center mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full">重点推荐</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">4.5星</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-3 shadow-sm slide-up flex items-center" style="animation-delay: 0.5s;">
+                <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-500 mr-3">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-sm">竞品对比分析技巧</h3>
+                    <div class="flex items-center mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-full">能力提升</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">4.8星</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-3 shadow-sm slide-up flex items-center" style="animation-delay: 0.6s;">
+                <div class="w-10 h-10 rounded-lg bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center text-yellow-500 mr-3">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-sm">客户画像与需求挖掘</h3>
+                    <div class="flex items-center mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 rounded-full">进阶课程</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">4.7星</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-3 shadow-sm slide-up flex items-center" style="animation-delay: 0.7s;">
+                <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 mr-3">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-sm">异议处理高级技巧</h3>
+                    <div class="flex items-center mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">沟通提升</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">4.6星</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-3 shadow-sm slide-up flex items-center" style="animation-delay: 0.8s;">
+                <div class="w-10 h-10 rounded-lg bg-pink-100 dark:bg-pink-900 flex items-center justify-center text-pink-500 mr-3">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-sm">个性化方案设计训练</h3>
+                    <div class="flex items-center mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300 rounded-full">方案能力</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">4.9星</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apply system theme preference if any
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        }
+    </script>
+</body>
+</html> 

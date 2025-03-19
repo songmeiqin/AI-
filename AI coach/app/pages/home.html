@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - AI训练管理平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark {
+            --bg-primary: #1F2937;
+            --text-primary: #F9FAFB;
+            --card-bg: #374151;
+        }
+        
+        .light {
+            --bg-primary: #F9FAFB;
+            --text-primary: #1F2937;
+            --card-bg: #FFFFFF;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .progress-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.3s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .main-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white light">
+    <div class="main-content p-4">
+        <!-- 顶部标题和欢迎信息 -->
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold">AI训练管理平台</h1>
+                <p class="text-gray-600 dark:text-gray-400">早上好，王小明</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                王
+            </div>
+        </div>
+        
+        <!-- 进度概览 -->
+        <div class="card bg-white dark:bg-gray-800 p-4 shadow-sm mb-5">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-lg font-semibold">本月学习进度</h2>
+                <span class="text-sm text-gray-500 dark:text-gray-400">75%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style="width: 75%"></div>
+            </div>
+            
+            <div class="flex justify-between mt-4">
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-blue-500">3</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">已完成课程</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-purple-500">8</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">训练次数</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-green-500">4</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">能力提升</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 能力雷达图 -->
+        <div class="card bg-white dark:bg-gray-800 p-4 shadow-sm mb-5">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">能力画像</h2>
+                <span class="text-xs text-blue-500">查看详情</span>
+            </div>
+            <div class="flex justify-center">
+                <div class="progress-ring">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <!-- 背景圆环 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E7EB" stroke-width="8" class="dark:stroke-gray-700" />
+                        <!-- 沟通能力 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#3B82F6" stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="67.858" class="progress-ring-circle" />
+                        <!-- 产品知识 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#8B5CF6" stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="135.717" class="progress-ring-circle" transform="rotate(72 60 60)" />
+                        <!-- 客户需求 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#EC4899" stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="169.646" class="progress-ring-circle" transform="rotate(144 60 60)" />
+                        <!-- 逻辑清晰 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#10B981" stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="101.788" class="progress-ring-circle" transform="rotate(216 60 60)" />
+                        <!-- 应变能力 -->
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#F59E0B" stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="84.823" class="progress-ring-circle" transform="rotate(288 60 60)" />
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">78</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">综合评分</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between text-xs mt-2 px-2">
+                <span class="text-blue-500">沟通能力</span>
+                <span class="text-purple-500">产品知识</span>
+                <span class="text-pink-500">客户需求</span>
+                <span class="text-green-500">逻辑清晰</span>
+                <span class="text-yellow-500">应变能力</span>
+            </div>
+        </div>
+        
+        <!-- 功能快捷入口 -->
+        <h2 class="text-lg font-semibold mb-3">核心功能</h2>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="card bg-gradient-to-br from-blue-500 to-blue-600 p-4 text-white">
+                <div class="feature-icon bg-white bg-opacity-20 mb-3">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="font-semibold mb-1">能力评估</h3>
+                <p class="text-xs text-blue-100">全方位评测，精准画像</p>
+            </div>
+            
+            <div class="card bg-gradient-to-br from-purple-500 to-purple-600 p-4 text-white">
+                <div class="feature-icon bg-white bg-opacity-20 mb-3">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="font-semibold mb-1">课程学习</h3>
+                <p class="text-xs text-purple-100">个性化课程推荐</p>
+            </div>
+            
+            <div class="card bg-gradient-to-br from-pink-500 to-pink-600 p-4 text-white">
+                <div class="feature-icon bg-white bg-opacity-20 mb-3">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="font-semibold mb-1">AI模拟训练</h3>
+                <p class="text-xs text-pink-100">实战演练，即时反馈</p>
+            </div>
+            
+            <div class="card bg-gradient-to-br from-green-500 to-green-600 p-4 text-white">
+                <div class="feature-icon bg-white bg-opacity-20 mb-3">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="font-semibold mb-1">数据分析</h3>
+                <p class="text-xs text-green-100">追踪进步，持续改进</p>
+            </div>
+        </div>
+        
+        <!-- 推荐训练 -->
+        <h2 class="text-lg font-semibold mt-6 mb-3">今日推荐</h2>
+        <div class="card bg-white dark:bg-gray-800 p-4 shadow-sm mb-4">
+            <div class="flex space-x-3">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium">高净值客户沟通技巧</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">针对性训练提升沟通效率和客户满意度</p>
+                    <div class="flex items-center">
+                        <span class="text-xs px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">AI模拟</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">15分钟</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card bg-white dark:bg-gray-800 p-4 shadow-sm">
+            <div class="flex space-x-3">
+                <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-500">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium">产品知识速记法</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">快速掌握核心产品特性和卖点</p>
+                    <div class="flex items-center">
+                        <span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-full">微课程</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-auto">25分钟</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apply system theme preference if any
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        }
+    </script>
+</body>
+</html> 
